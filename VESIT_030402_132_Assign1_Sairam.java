@@ -9,9 +9,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class VESIT_030402_132_Assign1_Sairam{
+public class VESIT_030402_132_Assign2_Sairam{
     public static void main(String args[]) throws IOException, FileNotFoundException {
-        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_030402_132_Assign1_Sairam.xlsx";     //Location where excel file is getting generated
+        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_030402_132_Assign2_Sairam.xlsx";     //Location where excel file is getting generated
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Instruction");      //Generating first sheet as Instruction
 
@@ -49,15 +49,15 @@ public class VESIT_030402_132_Assign1_Sairam{
 
             // Generate random number to perform the operation
             int pmin = 1; //min value for power
-            int pmax = 9; //max value for power
+            int pmax = 4; //max value for power
             int cmin = 1; //min value for coefficients
             int cmax = 20; //max value for coefficients
             int[] powersQuestion = new int[3];
-            int[] coefficientsQuestion = new int[3];
-            int[] coefficientsC_Answer1 = new int[3];
-            int[] coefficientsW_Answer1 = new int[3];
-            int[] coefficientsW_Answer2 = new int[3];
-            int[] coefficientsW_Answer3 = new int[3];
+            int coefficientQuestion;
+            int coefficientC_Answer;
+            int coefficientW_Answer1;
+            int coefficientW_Answer2;
+            int coefficientW_Answer3;
 
             for (int i = 0; i < 3; i++) {
                 powersQuestion[i] = (int) (Math.random() * (pmax - pmin + 1) + pmin);
@@ -81,14 +81,13 @@ public class VESIT_030402_132_Assign1_Sairam{
                 }
             }
             Arrays.sort(powersQuestion);
-            for (int i = 0; i < 3; i++) {
-                coefficientsQuestion[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
-                coefficientsC_Answer1[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
-                coefficientsW_Answer1[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
-                coefficientsW_Answer2[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
-                coefficientsW_Answer3[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
-
+            int sum = powersQuestion[0] + powersQuestion[1] + powersQuestion[2];
+            while (sum > 8){
+                powersQuestion[2] -= 1;
+                sum -= 1;
             }
+            Arrays.sort(powersQuestion);
+
 
             String[] alphabet = new String[3];
             alphabet[0] = "a";
@@ -100,58 +99,63 @@ public class VESIT_030402_132_Assign1_Sairam{
             correctPower[1] = (powersQuestion[1] - 1);
             correctPower[2] = (powersQuestion[2] - powersQuestion[1] + 1);
 
+            coefficientQuestion = (int)(Math.random()*(cmax-cmin+1)+cmin);
+            coefficientC_Answer = (int)(Math.random()*(cmax-cmin+1)+cmin);
+            coefficientW_Answer1 = (int)(Math.random()*(cmax-cmin+1)+cmin);
+            coefficientW_Answer2 = (int)(Math.random()*(cmax-cmin+1)+cmin);
+            coefficientW_Answer3 = (int)(Math.random()*(cmax-cmin+1)+cmin);
 
 
-            String correctAnswer = constructPolynomial(coefficientsC_Answer1, correctPower, alphabet  );
+            String correctAnswer = constructPolynomial(coefficientC_Answer, correctPower, alphabet);
 
             int[] wrongPower1 = new int[3];
-            wrongPower1[0] =  (powersQuestion[0] + powersQuestion[1] + 2);
+            wrongPower1[0] =  (powersQuestion[0] + powersQuestion[1]);
             wrongPower1[1] =  (powersQuestion[1]);
             wrongPower1[2] =  (powersQuestion[2] - powersQuestion[1] + 1);
 
             int[] wrongPower2 = new int[3];
             wrongPower2[0] =  (powersQuestion[0] + powersQuestion[1] - 1);
-            wrongPower2[1] =  (powersQuestion[1] + 3);
+            wrongPower2[1] =  (powersQuestion[1] + 1);
             wrongPower2[2] =  (powersQuestion[2] - powersQuestion[1] + 2);
 
             int[] wrongPower3 = new int[3];
-            wrongPower3[0] =  (powersQuestion[0] + powersQuestion[1] + 3);
-            wrongPower3[1] =  (powersQuestion[1] + 6);
+            wrongPower3[0] =  (powersQuestion[0] + powersQuestion[1] - 1);
+            wrongPower3[1] =  (powersQuestion[1] - 1);
             wrongPower3[2] =  (powersQuestion[2] - powersQuestion[1] + 1);
 
-            String wrongAnswer1 = constructPolynomial(coefficientsW_Answer1, wrongPower1, alphabet  );
-            String wrongAnswer2 = constructPolynomial(coefficientsW_Answer2, wrongPower2, alphabet  );
-            String wrongAnswer3 = constructPolynomial(coefficientsW_Answer3, wrongPower3, alphabet );
+            String wrongAnswer1 = constructPolynomial(coefficientW_Answer1, wrongPower1, alphabet  );
+            String wrongAnswer2 = constructPolynomial(coefficientW_Answer2, wrongPower2, alphabet  );
+            String wrongAnswer3 = constructPolynomial(coefficientW_Answer3, wrongPower3, alphabet );
 
             //question term generation
             String[] alphabet1 = new String[3];
             alphabet1[0] = "x";
             alphabet1[1] = "y";
             alphabet1[2] = "z";
-            String polyQ = constructPolynomial(coefficientsQuestion, powersQuestion, alphabet1 );
+            String polyQ = constructPolynomial(coefficientQuestion, powersQuestion, alphabet1 );
 //
 
 
-            String questionE = "Which of the following terms has degree same as degree of the term " + polyQ + "#";
+            String questionE = "Which of the following terms has degree same as degree of the term " + polyQ + "<br>#";
             String questionM = "खाली दिलेल्या कोणत्या पदाची कोटी, " + polyQ + " या पदाच्या कोटी इतकी आहे.<br>";
             String Question = "" + questionE + " " + questionM + "";
 
             row.createCell(4).setCellValue(Question);
-            row.createCell(5).setCellValue(correctAnswer);
+            row.createCell(5).setCellValue(correctAnswer+"<br>");
             row.createCell(6).setCellValue(" ");
             row.createCell(7).setCellValue(" ");
             row.createCell(8).setCellValue(" ");
-            row.createCell(9).setCellValue(wrongAnswer1);
-            row.createCell(10).setCellValue(wrongAnswer2);
-            row.createCell(11).setCellValue(wrongAnswer3);
+            row.createCell(9).setCellValue(wrongAnswer1+"<br>");
+            row.createCell(10).setCellValue(wrongAnswer2+"<br>");
+            row.createCell(11).setCellValue(wrongAnswer3+"<br>");
             row.createCell(12).setCellValue(60);
             row.createCell(13).setCellValue(2);
             row.createCell(14).setCellValue(" ");
             row.createCell(15).setCellValue("2022.sairam.konar@ves.ac.in");
 
             //Generate Solution
-            String solutionE = "Ans : " + correctAnswer + " Because degree of the given term " + polyQ + " $=$ power of $x$ + power of $y$ + power of $z= " + powersQuestion[0] + "+" + powersQuestion[1] + "+" + powersQuestion[2] + " =" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ .<br> From the given options, the term " + correctAnswer + " has the power<br> $=$ power of $a$ + power of $b$ + power of $c = " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$<br>All other terms have degree different than " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + ".<br> Therefore " + correctAnswer + " is the right option is the answer.<br>#";
-            String solutionM = "उत्तर : " + correctAnswer + " दिलेल्या पदाची कोटी " + polyQ + "$ =x$ चा घात + $y$ चा घात + $z$ चा घात $=" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ आहे.<br> दिलेल्या पर्यायां पैकी " + correctAnswer + " या पदातील $a$, $b$ आणि $c$ या चलांचे घातांक अनुक्रमे $" + (powersQuestion[0] + powersQuestion[1]) + "$, $" + (powersQuestion[1] - 1) + "$ आणि $" + (powersQuestion[2] - powersQuestion[1] + 1) + "$ आहेत.<br>म्हणून त्या पदाची कोटी $= " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br> इतर पदांची कोटी $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$ पेक्षा वेगळी आहे. <br> म्हणून " + correctAnswer + " हाच योग्य पर्याय आहे हे उत्तर . <br> ";
+            String solutionE = "Ans : " + correctAnswer + "<br>Because degree of the given term " + polyQ + "<br>$=$ power of $x$ + power of $y$ + power of $z= " + powersQuestion[0] + "+" + powersQuestion[1] + "+" + powersQuestion[2] + " =" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ .<br> From the given options, the term " + correctAnswer + " has the power<br> $=$ power of $a$ + power of $b$ + power of $c = " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$<br>All other terms have degree different than $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br> $\\therefore$ " + correctAnswer + " is the right option is the answer.<br>#";
+            String solutionM = "उत्तर : " + correctAnswer + "<br>दिलेल्या पदाची कोटी " + polyQ + "<br>$ =x$ चा घात + $y$ चा घात + $z$ चा घात $=" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ आहे.<br> दिलेल्या पर्यायां पैकी " + correctAnswer + " या पदातील $a$, $b$ आणि $c$ या चलांचे घातांक अनुक्रमे $" + (powersQuestion[0] + powersQuestion[1]) + "$, $" + (powersQuestion[1] - 1) + "$ आणि $" + (powersQuestion[2] - powersQuestion[1] + 1) + "$ आहेत.<br>म्हणून त्या पदाची कोटी $= " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br> इतर पदांची कोटी $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$ पेक्षा वेगळी आहे. <br> $\\therefore$ " + correctAnswer + " हाच योग्य पर्याय आहे हे उत्तर . <br> ";
             String Solution = " " + solutionE + " " + solutionM + " ";
 
             row.createCell(16).setCellValue(Solution);
@@ -190,22 +194,25 @@ public class VESIT_030402_132_Assign1_Sairam{
         System.out.println("file created");
 
     }
-    private static String constructPolynomial(int[] coefficient, int[] power, String[] alphabet  ){
+    private static String constructPolynomial(int coefficient, int[] power, String[] alphabet  ){
         StringBuilder polynomialBuilder = new StringBuilder("$");
         for(int i = 0; i<3 ; i++){
-            if(coefficient [i] == 1){
-                polynomialBuilder.append(alphabet[i]);
+            if(i == 0) {
+                if (coefficient != 1) {
+                    polynomialBuilder.append("{" + coefficient + "}");
+                }
             }
-            else {
-                polynomialBuilder.append("{"+coefficient[i] + "}" + alphabet[i]);
+            if(power[i] == 0){
+                continue;
             }
+            polynomialBuilder.append(alphabet[i]);
             if(power[i] == 1){
                 polynomialBuilder.append("");
             } else{
                 polynomialBuilder.append("^{"+power[i]+"}");
             }
         }
-        polynomialBuilder.append("$<br>");
+        polynomialBuilder.append("$");
         return polynomialBuilder.toString();
     }
 }
