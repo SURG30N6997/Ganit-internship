@@ -154,8 +154,8 @@ public class VESIT_030402_132_Assign2_Sairam{
             row.createCell(15).setCellValue("2022.sairam.konar@ves.ac.in");
 
             //Generate Solution
-            String solutionE = "Ans : " + correctAnswer + "<br>Because degree of the given term " + polyQ + "<br>$=$ power of $x$ + power of $y$ + power of $z= " + powersQuestion[0] + "+" + powersQuestion[1] + "+" + powersQuestion[2] + " =" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ .<br> From the given options, the term " + correctAnswer + " has the power<br> $=$ power of $a$ + power of $b$ + power of $c = " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$<br>All other terms have degree different than $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br> $\\therefore$ " + correctAnswer + " is the right option is the answer.<br>#";
-            String solutionM = "उत्तर : " + correctAnswer + "<br>दिलेल्या पदाची कोटी " + polyQ + "<br>$ =x$ चा घात + $y$ चा घात + $z$ चा घात $=" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ आहे.<br> दिलेल्या पर्यायां पैकी " + correctAnswer + " या पदातील $a$, $b$ आणि $c$ या चलांचे घातांक अनुक्रमे $" + (powersQuestion[0] + powersQuestion[1]) + "$, $" + (powersQuestion[1] - 1) + "$ आणि $" + (powersQuestion[2] - powersQuestion[1] + 1) + "$ आहेत.<br>म्हणून त्या पदाची कोटी $= " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br> इतर पदांची कोटी $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$ पेक्षा वेगळी आहे. <br> $\\therefore$ " + correctAnswer + " हाच योग्य पर्याय आहे हे उत्तर . <br> ";
+            String solutionE = "Ans : " + correctAnswer + "<br>Degree of the given term " + polyQ + "<br>$=$ power of $x$ + power of $y$ + power of $z= " + powersQuestion[0] + "+" + powersQuestion[1] + "+" + powersQuestion[2] + " =" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ .<br> From the given options, the term " + correctAnswer + " has the power<br> $=$ power of $a$ + power of $b$ + power of $c = " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$<br>All other terms have degree different than $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br> $\\therefore$ " + correctAnswer + " is the right option is the answer.<br>#";
+            String solutionM = "उत्तर : " + correctAnswer + "<br>दिलेल्या पदाची कोटी " + polyQ + "<br>$ =x$ चा घात + $y$ चा घात + $z$ चा घात $=" + powersQuestion[0] + "+" + powersQuestion[1] + "+" + powersQuestion[2] + " =" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[2]) + "$ आहे.<br> दिलेल्या पर्यायां पैकी " + correctAnswer + " या पदातील $a$, $b$ आणि $c$ या चलांचे घातांक अनुक्रमे $" + (powersQuestion[0] + powersQuestion[1]) + "$, $" + (powersQuestion[1] - 1) + "$ आणि $" + (powersQuestion[2] - powersQuestion[1] + 1) + "$ आहेत.<br>म्हणून त्या पदाची कोटी $= " + (powersQuestion[0] + powersQuestion[1]) + "+" + (powersQuestion[1] - 1) + "+" + (powersQuestion[2] - powersQuestion[1] + 1) + " = " + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$.<br>तसेच इतर सर्व पदांची कोटी $" + (powersQuestion[0] + powersQuestion[1] + powersQuestion[1] - 1 + powersQuestion[2] - powersQuestion[1] + 1) + "$ पेक्षा वेगळी आहे. <br> $\\therefore$ " + correctAnswer + " हाच योग्य पर्याय आहे हे उत्तर . <br> ";
             String Solution = " " + solutionE + " " + solutionM + " ";
 
             row.createCell(16).setCellValue(Solution);
@@ -216,11 +216,3 @@ public class VESIT_030402_132_Assign2_Sairam{
         return polynomialBuilder.toString();
     }
 }
-
-
-
-
-
-
-
-
