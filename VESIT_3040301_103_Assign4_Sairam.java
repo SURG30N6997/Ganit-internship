@@ -62,13 +62,8 @@ public class VESIT_3040301_103_Assign4_Sairam {
             coeffW[3] = coeff1 + coeff2 + 2;
             coeffW[4] = coeff1 + coeff2 + 3;
 
-            String[] variable = new String[26];
-
-            // Fill the array with lowercase English alphabets
-            for (int i = 0; i < 26; i++) {
-                variable[i] = String.valueOf((char) ('a' + i));
-            }
-            int alphaIndex = (int)(Math.random()*(25+1));
+            String variable[] = {"a", "b", "c", "d", "f", "g", "h", "m", "n", "p","s", "t", "u", "v", "w", "x", "y","z" };
+            int alphaIndex = (int)(Math.random()*(18));
             String[] wrongAnswer = new String[6];
             for (int j = 0; j < 5; j++) {
                 wrongAnswer[j] = constructPolynomialTerm(coeffW[j], power, variable[alphaIndex]);
