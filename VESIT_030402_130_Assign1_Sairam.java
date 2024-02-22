@@ -1,10 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -12,11 +9,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class VESIT_030402_130_Assign1_Sairam{
     public static void main(String args[]) throws IOException,FileNotFoundException{
-        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_030402_130_Assign1_Sairam.xlsx";     //Location where excel file is getting generated
+        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_030402_130_Assign1_Sairam_Correction2.xlsx";     //Location where excel file is getting generated
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Instruction");      //Generating first sheet as Instruction
 
-        XSSFSheet sheet1 = workbook.createSheet("Questions");       //Generating second sheet as Questions
+        XSSFSheet sheet1 =   workbook.createSheet("Questions");       //Generating second sheet as Questions
 
         //Adding first row in second sheet(Questions)
         String[] header = {"Sr. No","Question Type","Answer Type","Topic Number","Question (Text Only)","Correct Answer 1","Correct Answer 2",
@@ -49,125 +46,129 @@ public class VESIT_030402_130_Assign1_Sairam{
             row.createCell(3).setCellValue("030402");
 
             // Generate random number to perform the operation
-            int pmin = 1; // min value of power
-            int pmax = 7; // max value of power
-            int cmin = 1; //min for coefficient
-            int cmax = 8; //max for coefficient
-            int min = 5; // min value for noOfTerms
-            int max = 8; // max value for noOfTerms
+            int pmin = 0;
+            int pmax = 4;
+            int cmin = -6;
+            int cmax = 6;
+            int[] powersX = new int[5];
+            int[] powersY = new int[5];
+            int[] powersQuestion = new int[5];
+            int[] coefficients = new int[5];
 
-            int noOfTerms = (int) (Math.random() * (max - min + 1) + min);
-            int noOfPowers = noOfTerms - 1;
-            int[] power = new int[noOfPowers];
-
-            for (int j = 0; j < noOfPowers; j++) {
-                power[j] = (int) (Math.random() * (pmax - pmin + 1) + pmin);
+            for (int i = 0; i <= 4; i++) {
+                powersX[i] = (int) (Math.random() * (pmax - pmin + 1) + pmin);
+                powersY[i] = (int) (Math.random() * (pmax - pmin + 1) + pmin);
+                coefficients[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
+                while (coefficients[i] == 0) {
+                    coefficients[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
+                }
             }
-
-            for (int i = 0; i < noOfPowers - 1; i++) {
-                for (int j = i + 1; j < noOfPowers; j++) {
-                    // Check for duplicates
-                    while (power[i] == power[j]) {
-                        // Generate a new random value
-                        int newRandomValue = (int) (Math.random() * (pmax - pmin + 1) + pmin);
-
-                        // Check against all values in the array
+            while (coefficients[0] <= 0) {
+                coefficients[0] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
+            }
+            for (int i = 0; i <= 4; i++) {
+                while (powersX[i] + powersY[i] > 7) {
+                    if (powersX[i] > powersY[i]) {
+                        powersX[i] -= 1;
+                    } else {
+                        powersY[i] -= 1;
+                    }
+                }
+            }
+            for (int i = 0; i <= 4; i++) {
+                powersQuestion[i] = powersX[i] + powersY[i];
+            }
+            for (int i = 0; i < 4; i++) {
+                for (int j = i + 1; j < 5; j++) {
+                    while (powersQuestion[i] == powersQuestion[j]) {
+                        int newPowerX = (int) (Math.random() * (pmax - pmin + 1) + pmin);
+                        int newPowerY = (int) (Math.random() * (pmax - pmin + 1) + pmin);
+                        while (newPowerX + newPowerY > 7) {
+                            if (newPowerX > newPowerY) {
+                                newPowerX -= 1;
+                            } else {
+                                newPowerY -= 1;
+                            }
+                        }
+                        int newPowerQuestion = newPowerX + newPowerY;
                         boolean isDuplicate = false;
                         for (int check = 0; check <= j; check++) {
-                            if (newRandomValue == power[check]) {
+                            if (newPowerQuestion == powersQuestion[check]) {
                                 isDuplicate = true;
                                 break;
                             }
-                        }
 
+                        }
                         if (!isDuplicate) {
-                            power[j] = newRandomValue;
-                        }
-                    }
-                }
-            }
-
-
-            Arrays.sort(power);
-
-            //coefficients
-            int[] coefficients = new int[noOfTerms];
-            for (int i = 0; i < noOfTerms; i++) {
-                coefficients[i] = (int) (Math.random() * (cmax - cmin + 1) + cmin);
-            }
-
-            //Generate Correct answer
-            String correctAnswer = "$"+coefficients[noOfTerms-1]+"x^"+power[noOfPowers-1]+"$<br>";
-
-            //Generate wrong options
-            int[] wrongIndex = new int[noOfPowers-1];
-
-            for(int i=0; i < noOfPowers-1; i++){
-                wrongIndex[i] = (int)(Math.random() * (noOfPowers-1));
-            }
-
-            for(int i=0; i < noOfPowers-2; i++){
-                while (wrongIndex[i] == wrongIndex[i + 1]) {
-                    int newRandomValue = (int) (Math.random() * (noOfPowers-1));
-
-                    // Check against all values in the array
-                    boolean isDuplicate = false;
-                    for (int check = 0; check <= i; check++) {
-                        if (newRandomValue == wrongIndex[check]) {
-                            isDuplicate = true;
+                            powersX[i] = newPowerX;
+                            powersY[i] = newPowerY;
+                            powersQuestion[i] = newPowerQuestion;
                             break;
                         }
                     }
-
-                    if (!isDuplicate) {
-                        wrongIndex[i] = newRandomValue;
-                    }
                 }
             }
-
-
-
-            String wrongAnswer1 = "$"+coefficients[wrongIndex[0]+1]+"x^"+power[wrongIndex[0]]+"$<br>";
-            String wrongAnswer2 = "$"+coefficients[wrongIndex[1]+1]+"x^"+power[wrongIndex[1]]+"$<br>";
-            String wrongAnswer3 = "$"+coefficients[wrongIndex[2]+1]+"x^"+power[wrongIndex[2]]+"$<br>";
-
-            //polynomial generation
-            String polynomial = "";
-
-            if(noOfTerms==5){
-                polynomial = "$"+coefficients[4]+"x^"+power[3]+"+"+coefficients[3]+"x^"+power[2]+"+"+coefficients[2]+"x^"+power[1]+"+"+coefficients[1]+"x^"+power[0]+"+"+coefficients[0]+"$";
-            } else if(noOfTerms==6){
-                polynomial = "$"+coefficients[5]+"x^"+power[4]+"+"+coefficients[4]+"x^"+power[3]+"+"+coefficients[3]+"x^"+power[2]+"+"+coefficients[2]+"x^"+power[1]+"+"+coefficients[1]+"x^"+power[0]+"+"+coefficients[0]+"$";
-            } else if(noOfTerms==7){
-                polynomial = "$"+coefficients[6]+"x^"+power[5]+"+"+coefficients[5]+"x^"+power[4]+"+"+coefficients[4]+"x^"+power[3]+"+"+coefficients[3]+"x^"+power[2]+"+"+coefficients[2]+"x^"+power[1]+"+"+coefficients[1]+"x^"+power[0]+"+"+coefficients[0]+"$";
-            } else if(noOfTerms==8){
-                polynomial = "$"+coefficients[7]+"x^"+power[6]+"+"+coefficients[6]+"x^"+power[5]+"+"+coefficients[5]+"x^"+power[4]+"+"+coefficients[4]+"x^"+power[3]+"+"+coefficients[3]+"x^"+power[2]+"+"+coefficients[2]+"x^"+power[1]+"+"+coefficients[1]+"x^"+power[0]+"+"+coefficients[0]+"$";
+            int max = 0;
+            for (int i = 1; i < 5; i++) {
+                if (powersQuestion[max] < powersQuestion[i]) {
+                    max = i;
+                }
             }
+            String correctAnswer = constructPolynomialTerm(coefficients, powersX, powersY, max);
+            String polyQ = constrctPolynomial(coefficients, powersX, powersY);
+
+            ArrayList<Integer> wrongIndices = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                if (i != max) {
+                    wrongIndices.add(i);
+                }
+            }
+            Collections.shuffle(wrongIndices);
+
+            int[] randIndex = new int[4];
+            for (int i = 0; i < 4; i++) {
+                randIndex[i] = wrongIndices.get(i);
+            }
+            // Ensure there are no duplicate indices and none equal to max
+
+
+            String wrongAnswer1 = constructPolynomialTerm(coefficients, powersX, powersY, randIndex[0]);
+            String wrongAnswer2 = constructPolynomialTerm(coefficients, powersX, powersY, randIndex[1]);
+            String wrongAnswer3 = constructPolynomialTerm(coefficients, powersX, powersY, randIndex[2]);
+            String wrongAnswer4 = constructPolynomialTerm(coefficients, powersX, powersY, randIndex[3]);
+            String wrongAnswer5 = "None of the above<br># वरील पैकी कोणतेही नाही";
+
+            String[] wrongAnswers = new String[5];
+            wrongAnswers[0] = wrongAnswer1;
+            wrongAnswers[1] = wrongAnswer2;
+            wrongAnswers[2] = wrongAnswer3;
+            wrongAnswers[3] = wrongAnswer4;
+            wrongAnswers[4] = wrongAnswer5;
+
+
 
             //Generate question english
-            String  Que = "Identify the term with highest degree in given polynomial "+ polynomial +" <br>#";
+            String  Que = "Identify the term with highest degree in given polynomial "+ polyQ +" <br>#";
             //Generate question marathi
-            String Que1 = polynomial +" या बहुपदीमधील जास्तीत जास्त कोटी असणारे पद ओळखा<br>";
+            String Que1 = polyQ +" या बहुपदीमधील मोठ्यात मोठी कोटी असणारे पद ओळखा<br>";
             String Question = ""+Que+" "+Que1+"";
 
             row.createCell(4).setCellValue(Question);
-            row.createCell(5).setCellValue(correctAnswer);
+            row.createCell(5).setCellValue(correctAnswer+"<br>");
             row.createCell(6).setCellValue(" ");
             row.createCell(7).setCellValue(" ");
             row.createCell(8).setCellValue(" ");
-            row.createCell(9).setCellValue(wrongAnswer1);
-            row.createCell(10).setCellValue(wrongAnswer2);
-            row.createCell(11).setCellValue(wrongAnswer3);
+            row.createCell(9).setCellValue(wrongAnswers[randIndex[0]]+"<br>");
+            row.createCell(10).setCellValue(wrongAnswers[randIndex[1]]+"<br>");
+            row.createCell(11).setCellValue(wrongAnswers[randIndex[2]]+"<br>");
             row.createCell(12).setCellValue(60);
             row.createCell(13).setCellValue(2);
             row.createCell(14).setCellValue(" ");
             row.createCell(15).setCellValue("2022.sairam.konar@ves.ac.in");
 
             //Generate Solution
-            String Solu = "Ans :$"+coefficients[noOfTerms-1]+"x^"+power[noOfPowers-1]+"$<br>\n" +
-                    "By definition degree of a term in one variable, is the power of that variable. With more than one variable, the degree is the sum of the exponents of each variable. Given expression is in one variable only. Hence the term with highest degree is $"+coefficients[noOfTerms-1]+"x^"+power[noOfPowers-1]+"$ is the answer. <br>\n" +
-                    "#<br>";
-            String Sol1 = "$"+coefficients[noOfTerms-1]+"x^"+power[noOfPowers-1]+"$<br> पद जर एका चलातील असेल तर त्या चलाचा घातांक हाच त्या पदाची कोटी असते. परंतु, पद जर एकापेक्षा अधिक चलातील असेल तर, सर्व चलांच्या घातांकांची बेरीज ही त्या पदाची कोटी असते. <br> ही राशी एकाच चलातील आहे. त्यामुळे जास्तीत जास्त कोटी असणारे पद $"+coefficients[noOfTerms-1]+"x^"+power[noOfPowers-1]+"$ आहे हे उत्तर.<br> ";
+            String Solu ="Answer: "+correctAnswer+"<br>Given polynomial is "+polyQ+"<br>By definition degree of a term in one variable, is the power of that variable. With more than one variable, the degree is the sum of the exponents of each variable.<br>Given polynomial has 2 variables in the terms.<br>Hence the term with highest sum of exponents in this polynomial is "+correctAnswer+"<br> as power of $x =" + powersX[max] + "$ and power of $y =" + powersY[max]+"$. Thus degree of the polynomial <br>$=$ power of $x$ + power of $y$ $="+powersX[max]+"+"+powersY[max]+" = "+(powersX[max] + powersY[max])+ "$<br>$\\therefore$ "+correctAnswer+" is the correct answer.<br>" ;
+            String Sol1 = "#उत्तर :"+correctAnswer+"<br>दिलेली बहुपदी "+polyQ+" आहे. <br>पद जर एका चलातील असेल तर त्या चलाचा घातांक हाच त्या पदाची कोटी असते. परंतु, पद जर एकापेक्षा अधिक चलातील असेल तर, सर्व चलांच्या घातांकांची बेरीज ही त्या पदाची कोटी असते. <br>दिलेली बहुपदी दोन चलातील आहे. त्यामुळे त्यातील जास्तीत जास्त चलांच्या घातांकांची बेरीज "+correctAnswer+ " आहे कारण $x$ चा घात $= "+powersX[max]+"$ आणि $y$ चा घात $= "+powersY[max]+"$. म्हणून दिलेली बहुपदीचे पद<br> $= x$ चा घात + $y$ चा घात $= "+powersX[max]+"+"+powersY[max]+" = "+(powersX[max] + powersY[max])+ "$<br>$\\therefore$ "+correctAnswer+" ही उत्तर आहे";
             String Solution = " "+Solu+" "+Sol1+" ";
             row.createCell(16).setCellValue(Solution);
             row.createCell(17).setCellValue(" ");
@@ -205,8 +206,66 @@ public class VESIT_030402_130_Assign1_Sairam{
         System.out.println("file created");
 
     }
-
+    static String constrctPolynomial(int[] coefficients, int[] powersX, int[] powersY){
+        StringBuilder polynomialBuilder = new StringBuilder("$");
+        for(int i = 0; i<5; i++){
+            String coefficientSign = (coefficients[i] < 0) ? "-" : (i!=0) ? "+" : "";
+            polynomialBuilder.append(coefficientSign);
+            if(powersX[i]==0 && powersY[i]==0){
+                polynomialBuilder.append(Math.abs(coefficients[i]));
+            }
+            else if(Math.abs(coefficients[i]) != 1){
+                polynomialBuilder.append(Math.abs(coefficients[i]));
+            }
+            String power = new String();
+            if(powersX[i] == 1 && powersY[i] == 1){
+                power = "xy";
+            } else if(powersX[i] == 1 && powersY[i] > 1){
+                power = "xy^"+powersY[i];
+            } else if(powersY[i] == 1 && powersX[i] > 1){
+                power = "x^"+powersX[i]+"y";
+            } else {
+                power = (powersX[i] !=0) ? (powersY[i] != 0) ? ("x^"+powersX[i]+"y^"+powersY[i]) : ("x^"+powersX[i]) : (powersY[i] != 0) ? ("y^"+powersY[i]) : "";
+            }
+            if ((powersX[i] + powersY[i]) == 1){
+                power = power.replace("^1", "");
+            }
+            polynomialBuilder.append(power);
+        }
+        polynomialBuilder.append("$");
+        return polynomialBuilder.toString();
+    }
+    static String constructPolynomialTerm(int[] coefficients, int[] powersX, int[] powersY, int index){
+        StringBuilder polynomialBuilder = new StringBuilder("$");
+        String coefficientSign = (coefficients[index] < 0) ? "-" : "";
+        polynomialBuilder.append(coefficientSign);
+        if(powersX[index]==0 && powersY[index]==0){
+            polynomialBuilder.append(Math.abs(coefficients[index]));
+        }
+        if(Math.abs(coefficients[index]) != 1){
+            polynomialBuilder.append(Math.abs(coefficients[index]));
+        }
+        String power = new String();
+        if(powersX[index] == 1 && powersY[index] == 1){
+            power = "xy";
+        } else if(powersX[index] == 1 && powersY[index] > 1){
+            power = "xy^"+powersY[index];
+        } else if(powersY[index] == 1 && powersX[index] > 1){
+            power = "x^"+powersX[index]+"y";
+        } else {
+            power = (powersX[index] !=0) ? (powersY[index] != 0) ? ("x^"+powersX[index]+"y^"+powersY[index]) : ("x^"+powersX[index]) : (powersY[index] != 0) ? ("y^"+powersY[index]) : "";
+        }
+        if ((powersX[index] + powersY[index]) == 1){
+            power = power.replace("^1", "");
+        }
+        polynomialBuilder.append(power);
+        polynomialBuilder.append("$");
+        return polynomialBuilder.toString();
+    }
 }
+
+
+
 
 
 
