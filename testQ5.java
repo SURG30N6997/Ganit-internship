@@ -7,9 +7,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class testQ5 {
+public class VESIT_3040301_104_Assign5_Sairam {
     public static void main(String args[]) throws IOException, FileNotFoundException {
-        String filename = "C:/Users/LAKSHMI DASS/Documents/test.xlsx";     //Location where excel file is getting generated
+        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_3040301_104_Assign5_Sairam.xlsx";     //Location where excel file is getting generated
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Instruction");      //Generating first sheet as Instruction
 
@@ -79,17 +79,12 @@ public class testQ5 {
             coeffW[3] = coeff1 + coeff2 + 2;
             coeffW[4] = coeff1 + coeff2 + 3;
 
-            String[] variable = new String[26];
-
-            // Fill the array with lowercase English alphabets
-            for (int i = 0; i < 26; i++) {
-                variable[i] = String.valueOf((char) ('a' + i));
-            }
+            String variable[] = {"a", "b", "c", "d", "f", "g", "h", "m", "n", "p","s", "t", "u", "v", "w", "x", "y","z" };
             int alphaIndex[] = new int[2];
-            alphaIndex[0] = (int)(Math.random()*(25+1));
-            alphaIndex[1] = (int)(Math.random()*(25+1));
+            alphaIndex[0] = (int)(Math.random()*(18));
+            alphaIndex[1] = (int)(Math.random()*(18));
             while(alphaIndex[0] == alphaIndex[1]){
-                alphaIndex[1] = (int)(Math.random()*(25+1));
+                alphaIndex[1] = (int)(Math.random()*(18));
             }
             String[] wrongAnswer = new String[5];
             for (int j = 0; j < 5; j++) {
