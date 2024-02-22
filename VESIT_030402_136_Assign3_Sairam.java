@@ -148,7 +148,7 @@ public class VESIT_030402_136_Assign3_Sairam{
 
             //Generate Solution
             String Solu = "Ans : "+correctAnswer+"<br> Term corresponding to power $"+powerQ+"$ is the term with "+pPowerQE+" and the term in given polynomial is "+correctAnswer+".<br>$\\therefore$ "+correctAnswer+" is the answer.<br>#";
-            String Sol1 = "उत्तर : "+correctAnswer+"<br> एखाद्या पदामध्ये $x$ या चलाचा घातांक $"+powerQ+"$ असणे  म्हणजे त्या पदामध्ये "+pPowerQM+" असले पाहिजे. दिलेल्या बहुपदीमध्ये "+correctAnswer+" असलेले पद "+pPowerQM+" आहे. या पदामध्ये $x$ चा घातांक $"+powerQ+"$ आहे.<br> $\\therefore$ "+correctAnswer+" ही उत्तर आहे";
+            String Sol1 = "उत्तर : "+correctAnswer+"<br> एखाद्या पदामध्ये $x$ या चलाचा घातांक $"+powerQ+"$ असणे  म्हणजे त्या पदामध्ये "+pPowerQM+" असले पाहिजे. दिलेल्या बहुपदीमध्ये "+correctAnswer+" असलेले पद "+pPowerQM+" आहे. या पदामध्ये $x$ चा घातांक $"+powerQ+"$ आहे.<br> $\\therefore$ "+correctAnswer+" हे उत्तर आहे<br>";
             String Solution = " "+Solu+" "+Sol1+" ";
             row.createCell(16).setCellValue(Solution);
             row.createCell(17).setCellValue(" ");
