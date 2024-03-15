@@ -9,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class VESIT_030402_130_Assign1_Sairam{
     public static void main(String args[]) throws IOException,FileNotFoundException{
-        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_030402_130_Assign1_Sairam_Correction2.xlsx";     //Location where excel file is getting generated
+        String filename = "C:/Users/saira/Documents/Ganit-internship/Assignment Excel/VESIT_030402_130_Assign1_Sairam.xlsx";     //Location where excel file is getting generated
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Instruction");      //Generating first sheet as Instruction
 
@@ -167,9 +167,9 @@ public class VESIT_030402_130_Assign1_Sairam{
             row.createCell(15).setCellValue("2022.sairam.konar@ves.ac.in");
 
             //Generate Solution
-            String Solu ="Answer: "+correctAnswer+"<br>Given polynomial is "+polyQ+"<br>By definition degree of a term in one variable, is the power of that variable. With more than one variable, the degree is the sum of the exponents of each variable.<br>Given polynomial has 2 variables in the terms.<br>Hence the term with highest sum of exponents in this polynomial is "+correctAnswer+"<br> as power of $x =" + powersX[max] + "$ and power of $y =" + powersY[max]+"$. Thus degree of the polynomial <br>$=$ power of $x$ + power of $y$ $="+powersX[max]+"+"+powersY[max]+" = "+(powersX[max] + powersY[max])+ "$<br>$\\therefore$ "+correctAnswer+" is the correct answer.<br>" ;
-            String Sol1 = "#उत्तर :"+correctAnswer+"<br>दिलेली बहुपदी "+polyQ+" आहे. <br>पद जर एका चलातील असेल तर त्या चलाचा घातांक हाच त्या पदाची कोटी असते. परंतु, पद जर एकापेक्षा अधिक चलातील असेल तर, सर्व चलांच्या घातांकांची बेरीज ही त्या पदाची कोटी असते. <br>दिलेली बहुपदी दोन चलातील आहे. त्यामुळे त्यातील जास्तीत जास्त चलांच्या घातांकांची बेरीज "+correctAnswer+ " आहे कारण $x$ चा घात $= "+powersX[max]+"$ आणि $y$ चा घात $= "+powersY[max]+"$. म्हणून दिलेली बहुपदीचे पद<br> $= x$ चा घात + $y$ चा घात $= "+powersX[max]+"+"+powersY[max]+" = "+(powersX[max] + powersY[max])+ "$<br>$\\therefore$ "+correctAnswer+" ही उत्तर आहे";
-            String Solution = " "+Solu+" "+Sol1+" ";
+            String Solu ="Answer :"+correctAnswer+"<br>Given polynomial is "+polyQ+"<br>By definition degree of a term in one variable, is the power of that variable. With more than one variable, the degree is the sum of the exponents of each variable.<br> Given polynomial has 2 variables.<br>Here degree of the term "+correctAnswer+"$=$ power of $x$ which is $"+powersX[max]+" +$ power of $y$ which is $"+powersY[max]+"$<br> $\\therefore$ degree of the term "+correctAnswer+"$="+powersX[max]+"+"+powersY[max]+"="+(powersX[max]+powersY[max])+"$<br> All other terms in the given polynomial have degree less than $"+(powersX[max]+powersY[max])+"$<br> $\\therefore$ term with highest degree is "+correctAnswer+" is the answer.<br>";
+                    String Sol1 = "# उत्तर : "+correctAnswer+"<br>दिलेली बहुपदी "+polyQ+" आहे. <br> पद जर एका चलातील असेल तर त्या चलाचा घातांक हाच त्या पदाची कोटी असते. परंतु, पद जर एकापेक्षा अधिक चलातील असेल तर, सर्व चलांच्या घातांकांची बेरीज ही त्या पदाची कोटी असते. <br> दिलेली बहुपदी दोन चलातील आहे.<br> येथे बहुपदी मधील "+correctAnswer+" या पदाची कोटी $=x$ ची कोटी जी  $"+powersX[max]+"$ आहे $+ y $ ची कोटी जी $"+powersY[max]+"$ आहे. <br> $\\therefore$ "+correctAnswer+" या पदाची कोटी $="+powersX[max]+"+"+powersY[max]+"="+(powersX[max]+powersY[max])+"$ आहे. <br> बहुपदीतील इतर सर्व पदांची कोटी $"+(powersX[max]+powersY[max])+"$ पेक्षा लहान आहे. <br> $\\therefore$ बहुपदीतील सर्वात मोठी कोटी असणारे पद "+correctAnswer+" आहे, हे उत्तर. <br>";
+                    String Solution = " "+Solu+" "+Sol1+" ";
             row.createCell(16).setCellValue(Solution);
             row.createCell(17).setCellValue(" ");
             row.createCell(18).setCellValue(130);

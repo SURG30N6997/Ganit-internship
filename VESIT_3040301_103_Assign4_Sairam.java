@@ -9,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class VESIT_3040301_103_Assign4_Sairam {
     public static void main(String args[]) throws IOException, FileNotFoundException {
-        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_3040301_103_Assign4_Sairam.xlsx";     //Location where excel file is getting generated
+        String filename = "C:/Users/saira/Documents/Ganit-internship/Assignment Excel/VESIT_3040301_103_Assign4_Sairam.xlsx";     //Location where excel file is getting generated
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Instruction");      //Generating first sheet as Instruction
 
@@ -68,7 +68,7 @@ public class VESIT_3040301_103_Assign4_Sairam {
             for (int j = 0; j < 5; j++) {
                 wrongAnswer[j] = constructPolynomialTerm(coeffW[j], power, variable[alphaIndex]);
             }
-            wrongAnswer[5] = "None of the above<br># वरील पैकी कोणतेच नाही";
+            wrongAnswer[5] = "None of the above<br># वरील पैकी कोणतेही नाही";
 
             int[] wrongIndex = new int[3];
             for(int j = 0; j < 3; j++){

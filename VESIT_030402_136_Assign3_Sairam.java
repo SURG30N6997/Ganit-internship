@@ -9,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class VESIT_030402_136_Assign3_Sairam{
     public static void main(String args[]) throws IOException,FileNotFoundException{
-        String filename = "C:/Users/saira/Documents/Ganit Internship/Assignments/VESIT_030402_136_Assign3_Sairam.xlsx";     //Location where excel file is getting generated
+        String filename = "C:/Users/saira/Documents/Ganit-internship/Assignment Excel/VESIT_030402_136_Assign3_Sairam.xlsx";     //Location where excel file is getting generated
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Instruction");      //Generating first sheet as Instruction
 
@@ -89,6 +89,12 @@ public class VESIT_030402_136_Assign3_Sairam{
             int randIndexQ = (int)(Math.random()*(noOfTerms));
 
             int powerQ = powers[randIndexQ];
+            int example = (int)(Math.random()*(noOfTerms-1));
+            while (example == randIndexQ){
+                example = (int)(Math.random()*(noOfTerms-1));
+            }
+            coefficients[example] = powerQ;
+
             String pPowerQE = new String();
             String pPowerQM = new String();
             if(powerQ == 0){
