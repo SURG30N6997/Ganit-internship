@@ -56,6 +56,10 @@ public class VESIT_3040302_108_Assign6_Sairam {
                     coefficients[i] = (int)(Math.random()*(cmax - cmin + 1) + cmin);
                 } while(coefficients[i] == 0);
             }
+            int[] coeffWrong = new int[4];
+            for(int i = 0; i < 4; i++){
+                coeffWrong[i] = (-1)*(coefficients[i]);
+            }
             int[][] powers = new int[4][2];
             for(int i=0; i<4; i++){
                 for(int j=0; j<2; j++) {
@@ -102,11 +106,15 @@ public class VESIT_3040302_108_Assign6_Sairam {
             wrongPowers[3][0][1] = powers[0][1] + 1;
 
             String wrongTerms[][] = new String[4][4];
-            for(int i = 0; i < 4; i++){
+            for(int i = 0; i < 3; i++){
                 for(int j = 0; j < 4; j++){
                     wrongTerms[i][j] = constructPolynomialTerm(coefficients[j], wrongPowers[i][j], alphaIndex, variable);
                 }
             }
+            for(int j = 0; j < 4; j++){
+                wrongTerms[3][j] = constructPolynomialTerm(coeffWrong[j], powers[j], alphaIndex, variable);
+            }
+
 
             String wrongBino[][] = new String[4][2];
             for(int i = 0; i < 4; i++){
@@ -114,18 +122,18 @@ public class VESIT_3040302_108_Assign6_Sairam {
                 wrongBino[i][1] = constructBinomial(wrongTerms[i][2], wrongTerms[i][3]);
             }
 
-            String wrongAnswers[] = new String[5];
+            String wrongAnswers[] = new String[4];
             for(int i = 0; i < 4; i++){
                 wrongAnswers[i] = constructAnswer(wrongBino[i][0], wrongBino[i][1]);
             }
-            wrongAnswers[4] = "None of the above<br>#दिलेल्या पैकी कोणतेही नाह";
+
             int[] wrongIndex = new int[3];
             for (int j = 0; j < 3; j++) {
-                wrongIndex[j] = (int) (Math.random() * (5));
+                wrongIndex[j] = (int) (Math.random() * (4));
                 if (j >= 1) {
                     for (int check = 0; check < j; check++) {
                         while (wrongIndex[check] == wrongIndex[j]) {
-                            wrongIndex[j] = (int) (Math.random() * (5));
+                            wrongIndex[j] = (int) (Math.random() * (4));
                         }
                     }
                 }
