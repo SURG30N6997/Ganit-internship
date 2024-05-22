@@ -193,7 +193,7 @@ public class VESIT_3040302_117_Assign7_Sairam {
 
             //Generate Solution
             String Solu = "Ans : "+correctAnswer+"<br> \nGiven  $("+bino1+")-("+bino2+") -("+bino3+")$<br>\n In case of horizontal addition or subtraction of algebraic expressions we need to add or subtract (as the case may be) coefficients of like terms, to get the result and is written with the variable to get actual addition or subtraction.<br>\n$\\therefore$ $("+bino1+")-("+bino2+")-("+bino3+")$<br>\n$=$"+correctAnswer+". . . . By opening the brackets<br>\n$=$"+correctAnswer+"   . . . . . as there are no like terms, is answer.<br>";
-            String Sol1 = "# उत्तर : "+correctAnswer+"<br> दिल्या नुसार  $("+bino1+")-("+bino2+") -("+bino3+")$<br> बैजिक राशींची बेरीज किंवा वजाबाकी करताना आपण सजातीय राशींच्या सहगुणकांची बेरीज अथवा वजाबाकी करून (आवश्यकते नुसार) येणाऱ्या उत्तरासह चल लिहितो .<br> $\\therefore$ $("+bino1+")-("+bino2+")-("+bino3+")$<br> $=$"+correctAnswer+". . . . कंस सोडवून<br> $=$"+correctAnswer+"  . . . . . सजातीय पदे नाहीत म्हणून हे उत्तर.<br>";
+            String Sol1 = "# उत्तर : "+ correctAnswer+"<br> दिल्या नुसार  $("+bino1+")-("+bino2+") -("+bino3+")$<br> बैजिक राशींची बेरीज किंवा वजाबाकी करताना आपण सजातीय राशींच्या सहगुणकांची बेरीज अथवा वजाबाकी करून (आवश्यकते नुसार) येणाऱ्या उत्तरासह चल लिहितो .<br> $\\therefore$ $("+bino1+")-("+bino2+")-("+bino3+")$<br> $=$"+correctAnswer+". . . . कंस सोडवून<br> $=$"+correctAnswer+"  . . . . . सजातीय पदे नाहीत म्हणून हे उत्तर.<br>";
             String Solution = " " + Solu + " " + Sol1 + " ";
             row.createCell(16).setCellValue(Solution);
             row.createCell(17).setCellValue(" ");
