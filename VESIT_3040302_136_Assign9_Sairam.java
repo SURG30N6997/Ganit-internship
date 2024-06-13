@@ -110,15 +110,30 @@ public class VESIT_3040302_136_Assign9_Sairam {
 
             int index = (int)(Math.random()*(2));
             int place = (int)(Math.random()*(2));
-
+            int wPlace = 0;
+            if(place == 0){
+                wPlace = 1;
+            }
+            int wIndex = 0;
+            if(index == 0){
+                wIndex = 1;
+            }
 
             if (!(powers1[index][0] == powers2[0][0] && powers1[index][1] == powers2[0][1]) || (powers1[index][0] == powers2[1][0] && powers1[index][1] == powers2[1][1])){
                 powers2[place][0] = powers1[index][0];
                 powers2[place][1] = powers1[index][1];
             } else if(powers1[index][0] == powers2[0][0] && powers1[index][1] == powers2[0][1]){
                 place = 0;
-            } else if(powers1[index][0] == powers2[0][0] && powers1[index][1] == powers2[0][1]){
+            } else if(powers1[index][0] == powers2[1][0] && powers1[index][1] == powers2[1][1]){
                 place = 1;
+            }
+
+            while(powers2[0][0] == powers2[1][0] && powers2[0][1] == powers2[1][1]){
+                if(powers2[wPlace][1]==0 && powers2[wPlace][0] != 4){
+                    powers2[wPlace][1]++;
+                } else if(powers2[wPlace][1]==0 && powers2[wPlace][0] == 4){
+                    powers2[wPlace][0]--;
+                } else {powers2[wPlace][1]--;}
             }
 
             String[] variables = {"a", "b", "c", "d", "f", "g", "h", "m", "n", "p","s", "t", "u", "v", "w", "x", "y","z" };
@@ -140,14 +155,6 @@ public class VESIT_3040302_136_Assign9_Sairam {
             String correctAnswer = constructPolynomialTerm(coefficients2[place], powers2[place], alphaIndex, variables);
 
             String[] wrongAnswers = new String[4];
-            int wPlace = 0;
-            if(place == 0){
-                wPlace = 1;
-            }
-            int wIndex = 0;
-            if(index == 0){
-                wIndex = 1;
-            }
             wrongAnswers[0] = "$" + constructPolynomialTerm(coefficients2[wPlace], powers2[wPlace], alphaIndex, variables) + "$";
             wrongAnswers[1] = "$" + questionTerm + "$";
             String s1 = "Any of the given";
@@ -253,8 +260,8 @@ public class VESIT_3040302_136_Assign9_Sairam {
                 }
             }
 
-            String solutionE = "Ans : $"+correctAnswer+"$<br> In vertical addition method, the arrangement of terms is as described below, <br> Like terms from all the given expressions are required to be written in one column.<br> Accordingly for $"+questionTerm+"$ the like term in the second expression is $"+correctAnswer+"$, as $"+correctAnswer+"$ and $"+questionTerm+"$ are like terms.<br>. The vertical arrangement for the following is as follows:<br>"+vArrange+"$\\therefore$ As shown in the arrangement above, the term $"+correctAnswer+"$ from the second expression will appear below $"+questionTerm+"$ from the first expression, is the answer.<br># ";
-            String solutionM = "उत्तर : $"+correctAnswer+"$<br> उभी मांडणी पद्धतीने बेरीज करतांना दिलेल्या सर्व बैजिक राशीतीलपदांची मांडणी करणायची पद्धत खाली दिल्या नुसार असते.<br> सर्व राशीतील सजातीय पदे एकाच रकान्यात एका खाली एक अशी लिहितात.<br> त्यानुसार $"+questionTerm+"$ या पदाच्या रकान्यात त्याखाली दुसऱ्या राशीतील $"+correctAnswer+"$ हे पद येईल कारण $"+questionTerm+"$ आणि $"+correctAnswer+"$ ही सजातीय पदे आहेत. या बेरजेसाठी उभी मांडणी खालील प्रमाणे आहे: <br>"+vArrange+"$\\therefore$ वर दाखविलेल्या मांडणी वरून दुसऱ्या राशीतील $"+correctAnswer+"$ हे पद $"+questionTerm+"$ या पदाखाली येईल हे उत्तर. <br>";
+            String solutionE = "Ans : $"+correctAnswer+"$<br> In vertical addition method, the arrangement of terms is as described below, <br> Like terms from all the given expressions are required to be written in one column.<br> Accordingly for $"+questionTerm+"$ the like term in the second expression is $"+correctAnswer+"$<br>. The vertical arrangement for the following is as follows:<br>"+vArrange+"$\\therefore$ As shown in the arrangement above, the term $"+correctAnswer+"$ from the second expression will appear below $"+questionTerm+"$ from the first expression, is the answer.<br># ";
+            String solutionM = "उत्तर : $"+correctAnswer+"$<br> उभी मांडणी पद्धतीने बेरीज करतांना दिलेल्या सर्व बैजिक राशीतील पदांची मांडणी करण्याची पद्धत खाली दिल्या नुसार असते.<br> सर्व राशीतील सजातीय पदे एकाच रकान्यात एका खाली एक अशी लिहितात.<br> त्यानुसार $"+questionTerm+"$ या पदाच्या रकान्यात त्याखाली दुसऱ्या राशीतील $"+correctAnswer+"$ हे पद येईल कारण $"+questionTerm+"$ आणि $"+correctAnswer+"$ ही सजातीय पदे आहेत.<br> या बेरजेची उभी मांडणी खालील प्रमाणे आहे: <br>"+vArrange+"$\\therefore$ वर दाखविलेल्या मांडणी वरून दुसऱ्या राशीतील $"+correctAnswer+"$ हे पद $"+questionTerm+"$ या पदाखाली येईल हे उत्तर. <br>";
             String solution = solutionE + solutionM;
             row.createCell(16).setCellValue(solution);
             row.createCell(17).setCellValue(" ");
