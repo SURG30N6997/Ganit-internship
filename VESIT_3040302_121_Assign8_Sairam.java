@@ -53,7 +53,6 @@ public class VESIT_3040302_121_Assign8_Sairam {
             int dcmax = 10;
             int pmin = 1;
             int pmax = 5;
-            System.out.println("Iteration no: "+ k);
             //Question
 
             ArrayList<Integer> var1Numerators = new ArrayList<>();
@@ -110,8 +109,6 @@ public class VESIT_3040302_121_Assign8_Sairam {
             for(int i = 0; i < 6; i+=2){
                 binomials.add(constructBino(terms.get(i).toString(), terms.get(i+1).toString()));
             }
-
-//            System.out.println(terms);
 
             String questionEq = "$("+binomials.get(0)+")"+sign.get(0)+"("+binomials.get(1)+")"+sign.get(1)+"("+binomials.get(2)+")$";
             String Question = "Find by horizontal arrangement / आडवी मांडणी पद्धतीने किंमत काढा :<br> "+questionEq+"<br>";
@@ -316,10 +313,6 @@ public class VESIT_3040302_121_Assign8_Sairam {
             ArrayList<StringBuilder> correctTerms = new ArrayList<>();
             ArrayList<StringBuilder> correctTerms1 = new ArrayList<>();
 
-//            StringBuilder test = new StringBuilder("0");
-//            for(int i = 0; i < ((ansVar1powers.size())+ansVar2powers.size()); i++){
-//                correctTerms.add(test);
-//            }
             for(int i = 0; i < ((ansVar1powers.size()+ansVar2powers.size())); i++){
                 if(i < ansVar1powers.size()){
                     correctTerms.add(constructFraction(ansVar1Numerators.get(i), ansVar1Denominators.get(i), variables.get(alphaIndex.get(0)), ansVar1powers.get(i)));
@@ -337,13 +330,10 @@ public class VESIT_3040302_121_Assign8_Sairam {
                     correctTerms1.add(constructFraction1(ansVar2Numerators1.get(i), ansVar2Denominators1.get(i), variables.get(alphaIndex.get(1)), ansVar2powers1.get(i)));
                 }
             }
-//
-//            System.out.println(correctTerms);
-//            System.out.println(correctTerms1);
+
             String correctAnswer = constructAnswer(correctTerms);
             String correctAnswerNC = constructAnswer(correctTerms1);
-            System.out.println(correctAnswer);
-//            System.out.println(correctAnswerNC);
+
 
             //wrong answers
 
@@ -413,8 +403,6 @@ public class VESIT_3040302_121_Assign8_Sairam {
             wrongAnswers.add(wrongAnswer2);
             wrongAnswers.add(wrongAnswer3);
 
-//            System.out.println(wrongAnswers);
-
             ArrayList<Integer> cAnsVar1Numerators = new ArrayList<>(var1Numerators);
             ArrayList<Integer> cAnsVar2Numerators = new ArrayList<>(var2Numerators);
             ArrayList<Integer> cAnsVar1Denominators = new ArrayList<>(var1Denominators);
@@ -450,14 +438,12 @@ public class VESIT_3040302_121_Assign8_Sairam {
                                         if(powers3equalDen1[0] != 0 && powers3equalDen1[1] != 0 && powers3equalDen1[2] != 0) {
                                             if (bool == 0) {
                                                 cTerms.set((i), cTerms.get(i).insert(0, "("));
-//                                                    System.out.println(solTerms.getLast());
                                                 solTerms.removeLast();
                                                 solTerms.add(cTerms.get(i).toString());
                                                 bool++;
                                             }
                                         } else if((cTerms.get(j-2).toString().charAt(0) != '(')){
                                             cTerms.set((i), cTerms.get(i).insert(0, "("));
-//                                                System.out.println(solTerms.getLast());
                                             solTerms.removeLast();
                                             solTerms.add(cTerms.get(i).toString());
                                         }
@@ -556,9 +542,7 @@ public class VESIT_3040302_121_Assign8_Sairam {
 
                 }
             }
-//            System.out.println(solTerms);
             String likeTerms = likeTerms(solTerms);
-//            System.out.println(likeTerms);
 
             String solution = "Ans / उत्तर : "+correctAnswer+"<br>\n" +
                     "Given / दिल्या नुसार<br>\n" +
@@ -657,7 +641,7 @@ public class VESIT_3040302_121_Assign8_Sairam {
 
     static int[] equalAdd(int[] numerator, int[] denominator) {
         int sumNumerator = 0;
-        int sumDenominator = denominator[0]; // all denominators are the same after equate
+        int sumDenominator = denominator[0];
         for (int num : numerator) {
             sumNumerator += num;
         }
@@ -744,7 +728,7 @@ public class VESIT_3040302_121_Assign8_Sairam {
 
     static int[] equalAdd1(int[] numerator, int[] denominator) {
         int sumNumerator = 0;
-        int sumDenominator = denominator[0]; // all denominators are the same after equate
+        int sumDenominator = denominator[0];
         for (int num : numerator) {
             sumNumerator += num;
         }
