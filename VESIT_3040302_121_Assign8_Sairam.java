@@ -94,6 +94,47 @@ public class VESIT_3040302_121_Assign8_Sairam {
                 var2Denominators.set(i, var2Denominators.get(i)/gcd2);
             }
 
+            if ((var1Numerators.get(0) == var1Numerators.get(1)) && var1Denominators.get(0) == var1Denominators.get(1)) {
+                if(var1Denominators.get(1) != 10) {
+                    var1Denominators.set(1, (var1Denominators.get(1) + 1));
+                } else {var1Denominators.set(1, (var1Denominators.get(1) - 1));}
+            }
+            if ((var1Numerators.get(1) == var1Numerators.get(2)) && var1Denominators.get(1) == var1Denominators.get(2)) {
+                if(var1Denominators.get(2) != 10) {
+                    var1Denominators.set(2, (var1Denominators.get(2) + 1));
+                } else {var1Denominators.set(2, (var1Denominators.get(2) - 1));}
+            }
+            if ((var1Numerators.get(0) == var1Numerators.get(2)) && var1Denominators.get(0) == var1Denominators.get(2)) {
+                if(var1Denominators.get(2) != 10) {
+                    var1Denominators.set(2, (var1Denominators.get(2) + 1));
+                } else {var1Denominators.set(2, (var1Denominators.get(2) - 2));}
+            }
+
+            if ((var2Numerators.get(0) == var2Numerators.get(1)) && var2Denominators.get(0) == var2Denominators.get(1)) {
+                if(var2Denominators.get(1) != 10) {
+                    var2Denominators.set(1, (var2Denominators.get(1) + 1));
+                } else {var2Denominators.set(1, (var2Denominators.get(1) - 1));}
+            }
+            if ((var2Numerators.get(1) == var2Numerators.get(2)) && var2Denominators.get(1) == var2Denominators.get(2)) {
+                if(var2Denominators.get(2) != 10) {
+                    var2Denominators.set(2, (var2Denominators.get(2) + 1));
+                } else {var2Denominators.set(2, (var2Denominators.get(2) - 1));}
+            }
+            if ((var2Numerators.get(0) == var2Numerators.get(2)) && var2Denominators.get(0) == var2Denominators.get(2)) {
+                if(var2Denominators.get(2) != 10) {
+                    var2Denominators.set(2, (var2Denominators.get(2) + 1));
+                } else {var2Denominators.set(2, (var2Denominators.get(2) - 2));}
+            }
+
+            for(int i = 0; i < 3; i++){
+                int gcd1 = gcd2nos(var1Numerators.get(i), var1Denominators.get(i));
+                var1Numerators.set(i, var1Numerators.get(i)/gcd1);
+                var1Denominators.set(i, var1Denominators.get(i)/gcd1);
+                int gcd2 = gcd2nos(var2Numerators.get(i), var2Denominators.get(i));
+                var2Numerators.set(i, var2Numerators.get(i)/gcd2);
+                var2Denominators.set(i, var2Denominators.get(i)/gcd2);
+            }
+
             ArrayList<String> variables = new ArrayList<>(Arrays.asList("a", "b", "c", "d", "f", "g", "h", "m", "n", "p", "s", "t", "u", "v", "w", "x", "y", "z"));
             ArrayList<Integer> alphaIndex = new ArrayList<>();
             alphaIndex.add((int)(Math.random() * 17));
