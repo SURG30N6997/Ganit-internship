@@ -151,8 +151,10 @@ public class VESIT_3040302_121_Assign8_Sairam {
                 binomials.add(constructBino(terms.get(i).toString(), terms.get(i+1).toString()));
             }
 
-            String questionEq = "$("+binomials.get(0)+")"+sign.get(0)+"("+binomials.get(1)+")"+sign.get(1)+"("+binomials.get(2)+")$";
-            String Question = "Find by horizontal arrangement / आडवी मांडणी पद्धतीने किंमत काढा :<br> "+questionEq+"<br>";
+            String questionEq = "$\\left\\{"+binomials.get(0)+"\\right\\}"+sign.get(0)+"\\left\\{"+binomials.get(1)+"\\right\\}"+sign.get(1)+"\\left\\{"+binomials.get(2)+"\\right\\}$";
+            String questionE = "Find the value using horizontal arrangement :<br>"+questionEq;
+            String questionM = "<br>#आडवी मांडणी पद्धतीने किंमत काढा :<br>"+questionEq+"<br>";
+            String Question = questionE + questionM;
 
             ArrayList<Integer> ansVar1Numerators = new ArrayList<>(var1Numerators);
             ArrayList<Integer> ansVar2Numerators = new ArrayList<>(var2Numerators);
@@ -187,6 +189,14 @@ public class VESIT_3040302_121_Assign8_Sairam {
                 ansVar1Numerators1.set(2, (-1)*ansVar1Numerators1.get(2));
                 ansVar2Numerators1.set(2, (-1)*ansVar2Numerators1.get(2));
             }
+
+            ArrayList<StringBuilder> brTerms = new ArrayList<>();
+            for(int i = 0, j = 0; i < 6 && j < 3; i+=2, j++){
+                brTerms.add(constructFraction1(ansVar1Numerators.get(j), ansVar1Denominators.get(j), variables.get(alphaIndex.get(0)), var1Powers.get(j)));
+                brTerms.add(constructFraction1(ansVar2Numerators.get(j), ansVar2Denominators.get(j), variables.get(alphaIndex.get(1)), var2Powers.get(j)));
+            }
+
+            String brAnswer = constructAnswer(brTerms);
 
             if(ansVar1powers.get(0) == ansVar1powers.get(1) && ansVar1powers.get(1) == ansVar1powers.get(2)){
                 for(int i = 0; i<3; i++) {
@@ -475,52 +485,54 @@ public class VESIT_3040302_121_Assign8_Sairam {
                         if(j%2==0){
                             if(var1Powers.get(i/2) == 1){
                                 if(cTerms.get(j).toString().contains(variables.get(alphaIndex.get(0))) && !(cTerms.get(j).toString().contains("^"))){
-                                    if(i==0 || (cTerms.get(j-2).toString().charAt(0) != '(')){
+                                    if(i==0 || !(cTerms.get(j-2).toString().contains("\\left\\{"))){
                                         if(powers3equalDen1[0] != 0 && powers3equalDen1[1] != 0 && powers3equalDen1[2] != 0) {
                                             if (bool == 0) {
-                                                cTerms.set((i), cTerms.get(i).insert(0, "("));
+                                                cTerms.set((i), cTerms.get(i).insert(0, "\\left\\{"));
+//                                                    System.out.println(solTerms.getLast());
                                                 solTerms.removeLast();
                                                 solTerms.add(cTerms.get(i).toString());
                                                 bool++;
                                             }
-                                        } else if((cTerms.get(j-2).toString().charAt(0) != '(')){
-                                            cTerms.set((i), cTerms.get(i).insert(0, "("));
+                                        } else if(!(cTerms.get(j-2).toString().contains("\\left\\{"))){
+                                            cTerms.set((i), cTerms.get(i).insert(0, "\\left\\{"));
+//                                                System.out.println(solTerms.getLast());
                                             solTerms.removeLast();
                                             solTerms.add(cTerms.get(i).toString());
                                         }
                                     }
-                                    if((((cTerms.get(j-2).toString().charAt(0) == '(') || (cTerms.get(j-4).toString().charAt(0) == '(') && cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))))){
+                                    if((((cTerms.get(j-2).toString().contains("\\left\\{")) || (cTerms.get(j-4).toString().contains("\\left\\{")) && cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))))){
                                         if(powers3equalDen1[0] != 0 && powers3equalDen1[1] != 0 && powers3equalDen1[2] != 0){
                                             if(bool1 == 1){
-                                                cTerms.set((j), cTerms.get(j).append(")"));
+                                                cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                             } else {
                                                 bool1++;
                                             }
                                         } else {
-                                            cTerms.set((j), cTerms.get(j).append(")"));
+                                            cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                         }
                                     }
                                     solTerms.add(cTerms.get(j).toString());
                                 }
                             } else {
                                 if(cTerms.get(j).toString().contains(variables.get(alphaIndex.get(0))+"^"+var1Powers.get(i/2))){
-                                    if(i==0 || (cTerms.get(j-2).toString().charAt(0) != '(' )){
+                                    if(i==0 || !(cTerms.get(j-2).toString().contains("\\left\\{") )){
                                         if(bool == 0) {
-                                            cTerms.set((i), cTerms.get(i).insert(0, "("));
+                                            cTerms.set((i), cTerms.get(i).insert(0, "\\left\\{"));
                                             solTerms.removeLast();
                                             solTerms.add(cTerms.get(i).toString());
                                             bool++;
                                         }
                                     }
-                                    if(((cTerms.get(j-2).toString().charAt(0) == '(' || (cTerms.get(j-4).toString().charAt(0) == '(') && (cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))) || cTerms.get(j+1) == null))){
+                                    if(((cTerms.get(j-2).toString().contains("\\left\\{") || (cTerms.get(j-4).toString().contains("\\left\\{")) && (cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))) || cTerms.get(j+1) == null))){
                                         if(powers3equalDen1[0] != 0 && powers3equalDen1[1] != 0 && powers3equalDen1[2] != 0){
                                             if(bool1 == 1){
-                                                cTerms.set((j), cTerms.get(j).append(")"));
+                                                cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                             } else {
                                                 bool1++;
                                             }
                                         } else {
-                                            cTerms.set((j), cTerms.get(j).append(")"));
+                                            cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                         }
                                     }
                                     solTerms.add(cTerms.get(j).toString());
@@ -529,50 +541,50 @@ public class VESIT_3040302_121_Assign8_Sairam {
                         } else {
                             if(var2Powers.get(i/2) == 1){
                                 if(cTerms.get(j).toString().contains(variables.get(alphaIndex.get(1)))&& !(cTerms.get(j).toString().contains("^"))) {
-                                    if((cTerms.get(j-2).toString().charAt(0) != '(')){
+                                    if(!(cTerms.get(j-2).toString().contains("\\left\\{"))){
                                         if(bool == 0) {
-                                            cTerms.set((i), cTerms.get(i).insert(0, "("));
+                                            cTerms.set((i), cTerms.get(i).insert(0, "\\left\\{"));
                                             solTerms.removeLast();
                                             solTerms.add(cTerms.get(i).toString());
                                             bool++;
                                         }
                                     }
                                     if(j == 5){
-                                        cTerms.set((j), cTerms.get(j).append(")"));
-                                    } else if(((cTerms.get(j-2).toString().charAt(0) == '(' || (cTerms.get(j-4).toString().charAt(0) == '(') && cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))))){
+                                        cTerms.set((j), cTerms.get(j).append("\\right\\}"));
+                                    } else if(((cTerms.get(j-2).toString().contains("\\left\\{") || (cTerms.get(j-4).toString().contains("\\left\\{")) && cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))))){
                                         if(powers3equalDen2[0] != 0 && powers3equalDen2[1] != 0 && powers3equalDen2[2] != 0){
                                             if(bool1 == 1){
-                                                cTerms.set((j), cTerms.get(j).append(")"));
+                                                cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                             } else {
                                                 bool1++;
                                             }
                                         } else {
-                                            cTerms.set((j), cTerms.get(j).append(")"));
+                                            cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                         }
                                     }
                                     solTerms.add(cTerms.get(j).toString());
                                 }
                             } else {
                                 if(cTerms.get(j).toString().contains(variables.get(alphaIndex.get(1))+"^"+var2Powers.get(i/2))){
-                                    if((cTerms.get(j-1).toString().charAt(0) != '(')){
+                                    if(!(cTerms.get(j-1).toString().contains("\\left\\{"))){
                                         if(bool == 0) {
-                                            cTerms.set((i), cTerms.get(i).insert(0, "("));
+                                            cTerms.set((i), cTerms.get(i).insert(0, "\\left\\{"));
                                             solTerms.removeLast();
                                             solTerms.add(cTerms.get(i).toString());
                                             bool++;
                                         }
                                     }
                                     if(j == 5){
-                                        cTerms.set((j), cTerms.get(j).append(")"));
-                                    } else if(((cTerms.get(j-2).toString().charAt(0) == '(' || (cTerms.get(j-4).toString().charAt(0) == '(' && cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1))))))){
+                                        cTerms.set((j), cTerms.get(j).append("\\right\\}"));
+                                    } else if(((cTerms.get(j-2).toString().contains("\\left\\{") || (cTerms.get(j-4).toString().contains("\\left\\{")) && cTerms.get(j+1).toString().contains(variables.get(alphaIndex.get(1)))))){
                                         if(powers3equalDen2[0] != 0 && powers3equalDen2[1] != 0 && powers3equalDen2[2] != 0){
                                             if(bool1 == 1){
-                                                cTerms.set((j), cTerms.get(j).append(")"));
+                                                cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                             } else {
                                                 bool1++;
                                             }
                                         } else {
-                                            cTerms.set((j), cTerms.get(j).append(")"));
+                                            cTerms.set((j), cTerms.get(j).append("\\right\\}"));
                                         }
                                     }
                                     solTerms.add(cTerms.get(j).toString());
@@ -583,14 +595,45 @@ public class VESIT_3040302_121_Assign8_Sairam {
 
                 }
             }
-            String likeTerms = likeTerms(solTerms);
+            String likeTerms = "$"+likeTerms(solTerms)+"$";
 
-            String solution = "Ans / उत्तर : "+correctAnswer+"<br>\n" +
-                    "Given / दिल्या नुसार<br>\n" +
-                    ""+questionEq+"<br> \n" +
-                    "$"+likeTerms+"$<br>  . . . By bringing like terms together / सजातीय पदे एकत्र करून<br> \n" +
-                    ""+correctAnswerNC+"<br>  . . . .  adding coefficients of like terms / सजातीय पदांच्या सहगुणकांची बेरीज करून <br> \n" +
-                    ""+correctAnswer+". . . by simplifying is the answer/ सोपे रूप देऊन हे उत्तर<br>";
+            String solutionE = "";
+            String solutionM = "";
+            if(finalFraction[0] != 0 && finalFraction[1] != 0){
+                solutionE = "Ans : "+correctAnswer+"<br>" +
+                        "Given<br>\n" +
+                        ""+questionEq+"<br> \n" +
+                        "$=$"+brAnswer+" . . . . by opening the brackets<br>\n" +
+                        "$=$"+likeTerms+" . . . . by bringing the like terms together<br>\n" +
+                        "$=$"+correctAnswerNC+" . . . . by adding the coefficients of the like terms<br>\n" +
+                        "$=$"+correctAnswer+" . . . . by simplifying the bracket<br>\n" +
+                        "$\\therefore$ "+correctAnswer+" is the answer.<br>#";
+
+                solutionM = "उत्तर  : "+correctAnswer+"<br>\n" +
+                        "दिल्या नुसार <br>\n" +
+                        ""+questionEq+"<br> \n" +
+                        "$=$"+brAnswer+" . . . . कंस सोडवून <br>\n" +
+                        "$=$"+likeTerms+" . . . . सजातीय पदे एकत्र आणून <br>\n" +
+                        "$=$"+correctAnswerNC+" . . . . सजातीय पदांच्या सहगुणकांची बेरीज करून <br>\n" +
+                        "$=$"+correctAnswer+" . . . . सरळरूप देऊन <br>\n" +
+                        "$\\therefore$ "+correctAnswer+" हे उत्तर <br>";
+            } else {
+                solutionE = "Ans : "+correctAnswer+"<br>\n" +
+                        "Given<br>\n" +
+                        ""+questionEq+"<br> \n" +
+                        "$=$"+brAnswer+" . . . . by opening the brackets<br>\n" +
+                        "Since there are no like terms<br>\n" +
+                        "$\\therefore$ "+correctAnswer+ " is the answer.<br>#";
+                solutionM = "उत्तर  : "+correctAnswer+"<br>\n" +
+                        "दिल्या नुसार<br>\n" +
+                        ""+questionEq+"<br> \n" +
+                        "$=$"+brAnswer+" . . . . कंस सोडवून <br>\n" +
+                        "यात कोणतीही सजातीय पदे नाहीत. <br>\n" +
+                        "$\\therefore$ "+correctAnswer+" हे उत्तर .<br>\n" +
+                        "सोपे रूप देऊन हे उत्तर<br>";
+            }
+
+            String solution = solutionE + solutionM;
 
             row.createCell(4).setCellValue(Question);
             row.createCell(5).setCellValue(correctAnswer + "<br>");
