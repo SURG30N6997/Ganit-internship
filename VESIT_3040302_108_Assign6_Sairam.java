@@ -56,10 +56,7 @@ public class VESIT_3040302_108_Assign6_Sairam {
                     coefficients[i] = (int)(Math.random()*(cmax - cmin + 1) + cmin);
                 } while(coefficients[i] == 0);
             }
-            int[] coeffWrong = new int[4];
-            for(int i = 0; i < 4; i++){
-                coeffWrong[i] = (-1)*(coefficients[i]);
-            }
+
             int[][] powers = new int[4][2];
             for(int i=0; i<4; i++){
                 for(int j=0; j<2; j++) {
@@ -92,52 +89,58 @@ public class VESIT_3040302_108_Assign6_Sairam {
             alphaIndex[0] = (int)(Math.random()*(17));
             alphaIndex[1] = alphaIndex[0] + 1;
 
-            int[][][] wrongPowers = new int[4][4][2];
+            int[] coeffWrong1 = new int[4];
             for(int i = 0; i < 4; i++){
-                for(int j = 0; j < 4; j++){
-                    for(int l = 0; l < 2; l++){
-                        wrongPowers[i][j][l] = powers[j][l];
-                    }
+                coeffWrong1[i] = (-1) * coefficients[i];
+            }
+
+            int[] coeffWrong2 = new int[4];
+            for(int i = 0; i < 4; i++){
+                if(i < 2){
+                    coeffWrong2[i] = coefficients[i];
+                } else {
+                    coeffWrong2[i] = (-1) * coefficients[i];
                 }
             }
-            wrongPowers[0][1][1] = powers[1][1] + 1;
-            wrongPowers[1][2][0] = powers[2][1] + 2;
-            wrongPowers[2][1][1] = powers[1][1] + 3;
-            wrongPowers[3][0][1] = powers[0][1] + 1;
 
-            String wrongTerms[][] = new String[4][4];
+            int[] coeffWrong3 = new int[4];
+            for(int i = 0; i < 4; i++){
+                if(i>2){
+                    coeffWrong3[i] = (-1) * coefficients[i];
+                } else {
+                    coeffWrong3[i] = coefficients[i];
+                }
+            }
+
+            String wrongTerms[][] = new String[3][4];
+            for(int i = 0; i < 4; i++){
+                wrongTerms[0][i] = constructPolynomialTerm(coeffWrong1[i], powers[i], alphaIndex, variable);
+                wrongTerms[1][i] = constructPolynomialTerm(coeffWrong2[i], powers[i], alphaIndex, variable);
+                wrongTerms[2][i] = constructPolynomialTerm(coeffWrong3[i], powers[i], alphaIndex, variable);
+            }
+
+            String wrongBino[][] = new String[3][2];
             for(int i = 0; i < 3; i++){
-                for(int j = 0; j < 4; j++){
-                    wrongTerms[i][j] = constructPolynomialTerm(coefficients[j], wrongPowers[i][j], alphaIndex, variable);
-                }
-            }
-            for(int j = 0; j < 4; j++){
-                wrongTerms[3][j] = constructPolynomialTerm(coeffWrong[j], powers[j], alphaIndex, variable);
-            }
-
-
-            String wrongBino[][] = new String[4][2];
-            for(int i = 0; i < 4; i++){
                 wrongBino[i][0] = constructBinomial(wrongTerms[i][0], wrongTerms[i][1]);
                 wrongBino[i][1] = constructBinomial(wrongTerms[i][2], wrongTerms[i][3]);
             }
 
-            String wrongAnswers[] = new String[4];
-            for(int i = 0; i < 4; i++){
+            String wrongAnswers[] = new String[3];
+            for(int i = 0; i < 3; i++){
                 wrongAnswers[i] = constructAnswer(wrongBino[i][0], wrongBino[i][1]);
             }
 
-            int[] wrongIndex = new int[3];
-            for (int j = 0; j < 3; j++) {
-                wrongIndex[j] = (int) (Math.random() * (4));
-                if (j >= 1) {
-                    for (int check = 0; check < j; check++) {
-                        while (wrongIndex[check] == wrongIndex[j]) {
-                            wrongIndex[j] = (int) (Math.random() * (4));
-                        }
-                    }
-                }
-            }
+//            int[] wrongIndex = new int[3];
+//            for (int j = 0; j < 3; j++) {
+//                wrongIndex[j] = (int) (Math.random() * (4));
+//                if (j >= 1) {
+//                    for (int check = 0; check < j; check++) {
+//                        while (wrongIndex[check] == wrongIndex[j]) {
+//                            wrongIndex[j] = (int) (Math.random() * (4));
+//                        }
+//                    }
+//                }
+//            }
 
             String term1 = constructPolynomialTerm(coefficients[0], powers[0], alphaIndex, variable);
             String term2 = constructPolynomialTerm(coefficients[1], powers[1], alphaIndex, variable);
@@ -156,9 +159,9 @@ public class VESIT_3040302_108_Assign6_Sairam {
             row.createCell(6).setCellValue(" ");
             row.createCell(7).setCellValue(" ");
             row.createCell(8).setCellValue(" ");
-            row.createCell(9).setCellValue(wrongAnswers[wrongIndex[0]] + "<br>");
-            row.createCell(10).setCellValue(wrongAnswers[wrongIndex[1]] + "<br>");
-            row.createCell(11).setCellValue(wrongAnswers[wrongIndex[2]] + "<br>");
+            row.createCell(9).setCellValue(wrongAnswers[0] + "<br>");
+            row.createCell(10).setCellValue(wrongAnswers[1] + "<br>");
+            row.createCell(11).setCellValue(wrongAnswers[2] + "<br>");
             row.createCell(12).setCellValue(60);
             row.createCell(13).setCellValue(3);
             row.createCell(14).setCellValue(" ");
@@ -182,7 +185,7 @@ public class VESIT_3040302_108_Assign6_Sairam {
                 k--;
             }
 
-            if (correctAnswer.equals(wrongAnswers[wrongIndex[0]]) || correctAnswer.equals(wrongAnswers[wrongIndex[1]]) || correctAnswer.equals(wrongAnswers[wrongIndex[2]]) || wrongAnswers[wrongIndex[0]].equals(wrongAnswers[wrongIndex[1]]) || wrongAnswers[wrongIndex[0]].equals(wrongAnswers[wrongIndex[2]]) || wrongAnswers[wrongIndex[1]].equals(wrongAnswers[wrongIndex[2]])) {
+            if (correctAnswer.equals(wrongAnswers[0]) || correctAnswer.equals(wrongAnswers[1]) || correctAnswer.equals(wrongAnswers[2]) || wrongAnswers[0].equals(wrongAnswers[1]) || wrongAnswers[0].equals(wrongAnswers[2]) || wrongAnswers[1].equals(wrongAnswers[2])) {
                 System.out.println("duplicate" + k);
                 k--;
             }
